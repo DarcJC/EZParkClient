@@ -27,6 +27,7 @@ dependencies {
     implementation("ai.djl.pytorch", "pytorch-engine", djlVersion)
     implementation("ai.djl.pytorch", "pytorch-model-zoo", djlVersion)
     implementation("ai.djl.pytorch", "pytorch-native-auto", "1.9.1")
+    implementation("net.sourceforge.tess4j", "tess4j", "4.4.0")
 }
 
 tasks.test {

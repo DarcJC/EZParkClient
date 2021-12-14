@@ -1,6 +1,5 @@
 package pro.darc.park.utils
 
-import Main
 import ai.djl.Device
 import ai.djl.modality.cv.BufferedImageFactory
 import ai.djl.modality.cv.Image
@@ -11,13 +10,12 @@ import ai.djl.modality.cv.translator.YoloV5Translator
 import ai.djl.repository.zoo.Criteria
 import ai.djl.translate.Pipeline
 import ai.djl.translate.Translator
-import org.bytedeco.javacpp.Pointer
 import org.bytedeco.javacv.Java2DFrameUtils
 import org.bytedeco.javacv.OpenCVFrameConverter
 import org.opencv.core.Mat
+import org.opencv.core.Point
 import org.opencv.core.Rect
 import java.awt.image.BufferedImage
-import java.nio.file.Path
 import java.nio.file.Paths
 
 
@@ -56,10 +54,13 @@ fun locatePlate(frame: Mat): Mat? {
             val bbox = obj.boundingBox
             val clsName = obj.className
             val prob = obj.probability
-            if (prob > .75f && clsName == "plate") {
+            if (prob > .5f && clsName == "plate") {
                 val rect = bbox.bounds
-                println(rect)
-                return@let Mat(frame, Rect(rect.x.toInt(), rect.y.toInt(), rect.width.toInt(), rect.height.toInt()))
+//                Imgproc.rectangle(frame, Rect(Point(rect.point.x, rect.point.y), Point(rect.point.x + rect.width, rect.point.y - rect.height * 2)), Scalar(.0, .0, 255.0))
+                try {
+//                    return@let frame
+                    return@let Mat(frame, Rect(Point(rect.point.x, rect.point.y), Point(rect.point.x + rect.width, rect.point.y - rect.height * 1.5)))
+                } catch (e: Throwable) {println(e.cause)}
             }
         }
         null
