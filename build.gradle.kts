@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.5.31"
+    kotlin("plugin.serialization") version "1.5.31"
     id("org.jetbrains.compose") version "1.0.0-beta5"
 }
 
@@ -11,6 +12,7 @@ group = "pro.darc.park"
 version = "1.0.0"
 
 val djlVersion = "0.14.0"
+val ktorVersion = "1.6.7"
 
 repositories {
     google()
@@ -20,6 +22,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation(kotlin("stdlib"))
     implementation(compose.desktop.currentOs)
     implementation("org.bytedeco", "javacv-platform", "1.5.6")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
@@ -28,6 +31,9 @@ dependencies {
     implementation("ai.djl.pytorch", "pytorch-model-zoo", djlVersion)
     implementation("ai.djl.pytorch", "pytorch-native-auto", "1.9.1")
     implementation("net.sourceforge.tess4j", "tess4j", "4.4.0")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-serialization:$ktorVersion")
 }
 
 tasks.test {

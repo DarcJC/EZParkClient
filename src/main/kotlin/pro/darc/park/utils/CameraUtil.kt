@@ -34,7 +34,6 @@ class WebcamCapture(
     }
 
     fun run() {
-        VideoInputFrameGrabber.init()
         isRunning.set(true)
         val grabber = VideoInputFrameGrabber(deviceNumber)
         val sleepDelta: Long = 1000 / framePerSecond.toLong()
